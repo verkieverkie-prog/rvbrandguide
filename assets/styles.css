@@ -37,7 +37,7 @@ body {
   background: var(--stock);
   color: var(--ink);
   font-family: var(--sans);
-  font-size: 19px;
+  font-size: 20px;
   line-height: 1.62;
   /* faint contour-line wash so the page reads like an atlas sheet, not a flat swatch */
   background-image: linear-gradient(rgba(20,33,43,0.028) 1px, transparent 1px);
@@ -352,3 +352,70 @@ footer a { color: var(--ink-2); }
   font-size:15px; font-weight:600; color:var(--ink-2); text-decoration:none; margin:30px 0 0; }
 .backlink:hover { color:var(--ink); }
 .footlinks { display:flex; flex-wrap:wrap; gap:6px 14px; margin:4px 0 0; }
+
+/* =====================================================================
+   THE LETTER — single-column direct-response layout (research rebuild).
+   One reading path, ~660px measure, CTAs repeated, no nav leaks.
+   ===================================================================== */
+.letter { max-width: 660px; margin: 0 auto; padding: 0 22px; }
+.letter .lede { max-width: none; }
+.letter h2 { margin-top: 54px; }
+
+/* repeated CTA block: button + guarantee microline under it, every time */
+.cta-block { margin: 30px 0; }
+.cta-block .btn { max-width: 480px; margin-left: auto; margin-right: auto; }
+.cta-block .under { text-align: center; font-family: var(--ui); font-size: 14.5px;
+  color: var(--ink-3); margin: 10px 0 0; line-height: 1.5; }
+
+/* fascination bullets */
+.fascin { list-style: none; padding: 0; margin: 18px 0 24px; }
+.fascin li { padding: 10px 0 10px 34px; position: relative; color: var(--ink-2);
+  border-bottom: 1px dashed var(--hair); line-height: 1.5; }
+.fascin li:last-child { border-bottom: 0; }
+.fascin li::before { content: "→"; position: absolute; left: 2px; top: 10px;
+  color: var(--mark-dp); font-weight: 800; font-family: var(--ui); }
+
+/* how it works, 1-2-3 */
+.howit { display: grid; gap: 14px; margin: 24px 0; }
+@media (min-width: 720px){ .howit { grid-template-columns: repeat(3,1fr); } }
+.howit .hstep { background: #fff; border: 2px solid var(--ink); border-radius: 4px;
+  padding: 16px 18px; }
+.howit .hnum { font-family: var(--anton); font-weight: 700; font-size: 30px;
+  color: var(--mark-dp); line-height: 1; margin: 0 0 8px; }
+.howit .ht { font-family: var(--ui); font-weight: 800; font-size: 17px; color: var(--ink);
+  margin: 0 0 4px; }
+.howit .hd { font-family: var(--ui); font-size: 15px; color: var(--ink-2); margin: 0; }
+
+/* quote wall (real comment quotes, honest attribution) */
+.quotewall { display: grid; gap: 14px; margin: 24px 0; }
+.quotewall .qw { background: #fff; border: 1px solid var(--hair);
+  border-left: 4px solid var(--mark-dp); border-radius: 4px; padding: 14px 18px;
+  font-style: italic; font-size: 18px; color: var(--ink); }
+.quotewall .qw .who { font-family: var(--ui); font-style: normal; font-size: 13px;
+  font-weight: 700; text-transform: uppercase; letter-spacing: .05em;
+  color: var(--ink-3); margin-top: 8px; }
+
+/* the order area: visually encapsulated offer + payment zone */
+.orderbox { background: #fff; border: 3px solid var(--ink); border-radius: 6px;
+  padding: 28px 26px; margin: 34px 0; box-shadow: 0 6px 0 rgba(20,33,43,0.16); }
+.orderbox .obtitle { font-family: var(--serif); font-weight: 800; font-size: 26px;
+  color: var(--ink); margin: 0 0 4px; }
+.orderbox .obsub { font-family: var(--ui); font-size: 16px; color: var(--ink-2); margin: 0 0 16px; }
+.paysecure { display: flex; align-items: center; justify-content: center; gap: 10px;
+  flex-wrap: wrap; font-family: var(--ui); font-size: 14px; color: var(--ink-2);
+  margin: 12px 0 0; }
+.paysecure .plogo { border: 1px solid var(--hair); border-radius: 3px; background: #fff;
+  padding: 2px 8px; font-weight: 800; font-size: 12.5px; color: var(--ink); letter-spacing: .02em; }
+
+/* P.S. block */
+.ps { border: 2px dashed var(--ink); border-radius: 4px; background: var(--stock-2);
+  padding: 18px 20px; margin: 34px 0; font-size: 18px; color: var(--ink); }
+
+/* author / who-is-behind-it */
+.author { display: flex; gap: 16px; align-items: flex-start; background: #fff;
+  border: 2px solid var(--ink); border-radius: 4px; padding: 18px 20px; margin: 22px 0; }
+.author .avat { flex: none; width: 64px; height: 64px; border-radius: 50%;
+  background: var(--ink); color: var(--mark); font-family: var(--anton); font-weight: 700;
+  font-size: 22px; display: flex; align-items: center; justify-content: center; }
+.author p { margin: 0; font-size: 17px; }
+@media (max-width: 560px){ .letter h1 { font-size: 33px; } }

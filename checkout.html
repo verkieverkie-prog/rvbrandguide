@@ -9,10 +9,10 @@
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/styles.css">
 <style>
-  .cartline{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid #e5ded2}
+  .cartline{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--hair);font-family:var(--ui)}
   .cartline .nm{font-weight:700}
-  .totalline{display:flex;justify-content:space-between;padding:14px 0;font-size:1.15rem;font-weight:800}
-  .swaplink{font-size:.9rem}
+  .totalline{display:flex;justify-content:space-between;padding:14px 0;font-size:1.2rem;font-weight:800;font-family:var(--ui)}
+  .swaplink{font-size:.9rem;font-family:var(--ui)}
 </style>
 </head>
 <body>
@@ -20,39 +20,40 @@
 <div class="topbar">Secure checkout · <b>instant download</b> · 30-day money back</div>
 
 <main class="hero">
-  <div class="wrap-wide split">
-    <div class="pitch">
-      <p class="eyebrow">Almost there</p>
-      <h1>Your order</h1>
+  <div class="letter">
+    <p class="eyebrow">Almost there</p>
+    <h1>Your order</h1>
+
+    <!-- ORDER SUMMARY + PAYMENT: one encapsulated zone, price stated before Stripe -->
+    <div class="orderbox">
       <div id="cart"></div>
+      <div class="totalline"><span>Total today</span><span id="total">$0</span></div>
       <p class="swaplink" id="swap"></p>
 
-      <div class="totalline"><span>Total today</span><span id="total">$0</span></div>
+      <form class="optin" action="#" method="post" onsubmit="return false" aria-label="Checkout" style="border:0;box-shadow:none;padding:0;margin:18px 0 0">
+        <label for="email">Email (your guide is delivered here)</label>
+        <input id="email" name="email" type="email" autocomplete="email" placeholder="your email" inputmode="email">
+        <button class="btn" type="submit" data-checkout>Continue to secure payment</button>
+        <p class="microcopy">The total above is the exact amount you will see on the payment page. Nothing is added.</p>
+      </form>
 
-      <div class="guarantee">
-        <span class="seal">100%<br>BACK</span>
-        <span><strong>Read it. If it does not change how you shop for a rig, email us within 30 days for every cent back, and keep it anyway.</strong> The risk is on us. The rig you avoid pays for this a thousand times over.</span>
+      <div class="paysecure">
+        <span>Payments securely processed by Stripe</span>
+        <span class="plogo">VISA</span><span class="plogo">Mastercard</span><span class="plogo">Amex</span><span class="plogo">Apple Pay</span>
       </div>
     </div>
 
-    <div class="buybox">
-      <form class="optin" action="#" method="post" onsubmit="return false" aria-label="Checkout">
-        <label for="email">Email (your guide goes here)</label>
-        <input id="email" name="email" type="email" autocomplete="email" placeholder="your email" inputmode="email">
-        <button class="btn" type="submit" data-checkout>Continue to secure payment</button>
-        <p class="microcopy">Payment is handled by Stripe on the next page. Takes 60 seconds.</p>
-        <div class="badges">
-          <span class="bdg"><span class="ic">✓</span> Secure checkout</span>
-          <span class="bdg"><span class="ic">✓</span> Instant download</span>
-          <span class="bdg"><span class="ic">✓</span> 30-day money back</span>
-          <span class="bdg"><span class="ic">✓</span> No account needed</span>
-        </div>
-      </form>
-      <div class="disclosure">One payment, nothing recurring. No brand and no dealer pays us, and no brand can pay to change its verdict.</div>
+    <div class="guarantee">
+      <span class="seal">30 DAY<br>100%</span>
+      <span><strong>Read it. If it does not change how you shop for a rig, email us within 30 days for every cent back, and keep it anyway.</strong> The risk is on us. The rig you avoid pays for this a thousand times over.</span>
     </div>
-  </div>
 
-  <div class="wrap narrow">
+    <div class="faqs">
+      <div class="faq"><p class="q">What happens after I pay?</p><p class="a">You download the guide immediately, and a copy is emailed to you. No account is created and nothing recurs.</p></div>
+      <div class="faq"><p class="q">Is my payment information safe?</p><p class="a">We never see your card. Payment is handled entirely by Stripe, the processor used by millions of businesses worldwide.</p></div>
+    </div>
+
+    <div class="disclosure">One payment, nothing recurring. No brand and no dealer pays us, and no brand can pay to change its verdict.</div>
   </div>
 </main>
 
