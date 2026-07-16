@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Checkout: The RV Brand Reliability Guide</title>
+<meta name="description" content="Secure checkout. 30-day money-back guarantee, instant download.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  .cartline{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid #e5ded2}
+  .cartline .nm{font-weight:700}
+  .totalline{display:flex;justify-content:space-between;padding:14px 0;font-size:1.15rem;font-weight:800}
+  .swaplink{font-size:.9rem}
+</style>
+</head>
+<body>
+
+<div class="topbar">Secure checkout · <b>instant download</b> · 30-day money back</div>
+
+<main class="hero">
+  <div class="wrap-wide split">
+    <div class="pitch">
+      <p class="eyebrow">Almost there</p>
+      <h1>Your order</h1>
+      <div id="cart"></div>
+      <p class="swaplink" id="swap"></p>
+
+      <div class="totalline"><span>Total today</span><span id="total">$0</span></div>
+
+      <div class="guarantee">
+        <span class="seal">100%<br>BACK</span>
+        <span><strong>Read it. If it does not change how you shop for a rig, email us within 30 days for every cent back, and keep it anyway.</strong> The risk is on us. The rig you avoid pays for this a thousand times over.</span>
+      </div>
+    </div>
+
+    <div class="buybox">
+      <form class="optin" action="#" method="post" onsubmit="return false" aria-label="Checkout">
+        <label for="email">Email (your guide goes here)</label>
+        <input id="email" name="email" type="email" autocomplete="email" placeholder="your email" inputmode="email">
+        <button class="btn" type="submit" data-checkout>Continue to secure payment</button>
+        <p class="microcopy">Payment is handled by Stripe on the next page. Takes 60 seconds.</p>
+        <div class="badges">
+          <span class="bdg"><span class="ic">✓</span> Secure checkout</span>
+          <span class="bdg"><span class="ic">✓</span> Instant download</span>
+          <span class="bdg"><span class="ic">✓</span> 30-day money back</span>
+          <span class="bdg"><span class="ic">✓</span> No account needed</span>
+        </div>
+      </form>
+      <div class="disclosure">One payment, nothing recurring. No brand and no dealer pays us, and no brand can pay to change its verdict.</div>
+    </div>
+  </div>
+
+  <div class="wrap narrow">
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>The RV Brand Reliability Guide, from the RV RYAN channel. We read the recall record so you do not have to.</p>
+    <p class="footlinks"><a href="index.html">Home</a> · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · <a href="refund.html">Refund policy</a> · <a href="contact.html">Contact</a></p>
+  </div>
+</footer>
+
+<script src="assets/funnel.js"></script>
+</body>
+</html>
