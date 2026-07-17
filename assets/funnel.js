@@ -44,9 +44,9 @@
 
   // ---- PRODUCTS: the 3-tier ladder. pay = Stripe payment link (empty = waitlist mode) ----
   var TIERS = {
-    one:      { name: 'One Segment Guide',                       price: 12, pay: '' },
-    complete: { name: 'The Complete RV Brand Reliability Guide', price: 27, pay: '' },
-    system:   { name: "The RV Buyer's Protection System",        price: 97, pay: '' }
+    one:      { name: 'One Segment Guide',                       price: 8.99,  pay: 'https://buy.stripe.com/eVq6oH4XcdMC7Yd2cngA80e' },
+    complete: { name: 'The Complete RV Brand Reliability Guide', price: 26.99, pay: 'https://buy.stripe.com/6oUaEXgFUcIy7Yd5ozgA80f' },
+    system:   { name: "The RV Buyer's Protection System",        price: 96.99, pay: 'https://buy.stripe.com/5kQ28r0GWeQG5Q5g3dgA80g' }
   };
   function money(n) { return '$' + (n % 1 ? n.toFixed(2) : n); }
 
