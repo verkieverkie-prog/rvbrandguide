@@ -1,0 +1,4 @@
+{
+  "_note": "REAL purchases only. Every entry must correspond to an actual Stripe payment. Fabricated entries are illegal (FTC fake-notification rule) and are never to be added. Fields: state (US state, no city/name), tier (one|complete|system), at (ISO timestamp of the real charge).",
+  "purchases": []
+}

@@ -198,8 +198,51 @@
   function esc(v) { return String(v).replace(/[<>&"]/g, function (c) {
     return { '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;' }[c]; }); }
 
+  // ---- RECENT-PURCHASE TOASTS: real sales only. Feed = data/purchases.json,
+  // which holds actual Stripe charges (state + tier + timestamp). Empty feed =
+  // no toasts, ever. Never add fabricated entries: fake purchase notifications
+  // violate the FTC rule on deceptive social proof.
+  function wirePurchaseToasts() {
+    var MAX_AGE = 7 * 86400000, MAX_SHOW = 4;
+    fetch('data/purchases.json', { cache: 'no-store' })
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        var items = (d && d.purchases || []).filter(function (p) {
+          return p && p.state && TIERS[p.tier] && (Date.now() - Date.parse(p.at)) < MAX_AGE;
+        }).sort(function (a, b) { return Date.parse(b.at) - Date.parse(a.at); }).slice(0, MAX_SHOW);
+        if (!items.length) return;
+
+        var el = document.createElement('div');
+        el.className = 'ptoast';
+        el.hidden = true;
+        el.innerHTML = '<span class="pt-dot"></span><span class="pt-txt"></span>';
+        document.body.appendChild(el);
+        var txt = el.querySelector('.pt-txt');
+
+        function ago(t) {
+          var m = Math.max(1, Math.round((Date.now() - Date.parse(t)) / 60000));
+          if (m < 60) return m + (m === 1 ? ' minute ago' : ' minutes ago');
+          var h = Math.round(m / 60);
+          if (h < 24) return h + (h === 1 ? ' hour ago' : ' hours ago');
+          var dd = Math.round(h / 24);
+          return dd + (dd === 1 ? ' day ago' : ' days ago');
+        }
+        var i = 0;
+        function showNext() {
+          if (i >= items.length) return;
+          var p = items[i++];
+          txt.innerHTML = 'Someone in <b>' + esc(p.state) + '</b> got <b>' + esc(TIERS[p.tier].name) + '</b> · ' + ago(p.at);
+          el.hidden = false;
+          setTimeout(function () { el.hidden = true; setTimeout(showNext, 14000); }, 8000);
+        }
+        setTimeout(showNext, 6000);
+      })
+      .catch(function () {});
+  }
+
   function init() {
     wireOptin();
+    wirePurchaseToasts();
     wireProducts();
     wireCheckout();
     wireTripwire();
