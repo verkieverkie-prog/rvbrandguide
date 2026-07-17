@@ -14,11 +14,15 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://verkieverkie-prog.github.io/rvbrandguide/assets/og.jpg">
-<link rel="stylesheet" href="assets/styles.css?v=9">
+<link rel="stylesheet" href="assets/styles.css?v=10">
 </head>
 <body>
 
 <div class="topbar">For RV shoppers about to spend $40,000 or more · <b>30-day money back on everything</b></div>
+<a class="promobar" id="promobar" href="#order" hidden>
+  <span class="pb-l">Launch pricing: complete guide <b>$27</b>, then $37</span>
+  <span class="pb-r">ends Sunday night · <b id="pb-t">--</b></span>
+</a>
 
 <main class="hero">
   <div class="letter">
@@ -290,19 +294,22 @@
 (function(){
   var END = Date.parse('2026-07-21T03:59:59Z');
   var box = document.getElementById('promo');
+  var bar = document.getElementById('promobar');
   if (!box || !isFinite(END)) return;
   var d = document.getElementById('pc-d'), h = document.getElementById('pc-h'),
       m = document.getElementById('pc-m'), s = document.getElementById('pc-s');
+  var barT = document.getElementById('pb-t');
   function pad(n){ return n < 10 ? '0' + n : '' + n; }
   function tick(){
     var left = END - Date.now();
-    if (left <= 0) { box.hidden = true; clearInterval(iv); return; }
+    if (left <= 0) { box.hidden = true; if (bar) bar.hidden = true; clearInterval(iv); return; }
     var sec = Math.floor(left / 1000);
-    d.textContent = Math.floor(sec / 86400);
-    h.textContent = pad(Math.floor(sec % 86400 / 3600));
-    m.textContent = pad(Math.floor(sec % 3600 / 60));
-    s.textContent = pad(sec % 60);
+    var dd = Math.floor(sec / 86400), hh = pad(Math.floor(sec % 86400 / 3600)),
+        mm = pad(Math.floor(sec % 3600 / 60)), ss = pad(sec % 60);
+    d.textContent = dd; h.textContent = hh; m.textContent = mm; s.textContent = ss;
+    if (barT) barT.textContent = dd + 'd ' + hh + ':' + mm + ':' + ss;
     box.hidden = false;
+    if (bar) bar.hidden = false;
   }
   var iv = setInterval(tick, 1000);
   tick();
