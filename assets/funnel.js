@@ -19,6 +19,29 @@
   function go(url) { window.location.href = url; }
   function isEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((v || '').trim()); }
 
+  // ---- LEAD CAPTURE: ship every captured email + intent to the inbox.
+  // formsubmit.co relay; fire-and-forget so it never blocks the visitor.
+  var LEAD_ENDPOINT = 'https://formsubmit.co/ajax/rockyvteam@gmail.com';
+  function sendLead(kind, extra) {
+    try {
+      var s = load();
+      var body = {
+        _subject: 'RV Guide lead: ' + kind,
+        kind: kind,
+        email: s.email || (extra && extra.email) || '',
+        page: location.pathname,
+        state: JSON.stringify(s)
+      };
+      if (extra) for (var k in extra) body[k] = extra[k];
+      fetch(LEAD_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(body),
+        keepalive: true
+      }).catch(function () {});
+    } catch (e) {}
+  }
+
   // ---- PRODUCTS: the 3-tier ladder. pay = Stripe payment link (empty = waitlist mode) ----
   var TIERS = {
     one:      { name: 'One Segment Guide',                       price: 12, pay: '' },
@@ -36,6 +59,7 @@
       window.location.href = t.pay + (em ? '?prefilled_email=' + encodeURIComponent(em) : '');
     } else {
       set({ waitlist: tierKey, waitlist_at: Date.now() });
+      sendLead('waitlist-' + tierKey, { tier: t ? t.name : tierKey });
       go('success.html');
     }
   }
@@ -57,6 +81,7 @@
           return;
         }
         set({ email: email.value.trim(), subscribed_at: Date.now() });
+        sendLead('checklist-optin', { email: email.value.trim() });
         go('thank-you.html');
       });
     });
@@ -160,7 +185,7 @@
     if (!root) return;
     var s = load();
     var lines = [];
-    lines.push('Free Walk-Away Checklist, sent to <strong>' + (s.email ? esc(s.email) : 'your inbox') + '</strong>. <a href="list.html">Or read it right now</a>.');
+    lines.push('Your free Walk-Away Checklist is ready: <a href="list.html"><strong>read it right now</strong></a>.' + (s.email ? ' We saved <strong>' + esc(s.email) + '</strong> for guide updates.' : ''));
     if (s.waitlist && TIERS[s.waitlist]) {
       lines.push(TIERS[s.waitlist].name + ': <strong>your spot is saved</strong>. Checkout opens shortly and your email gets first access at today’s price.');
     }
