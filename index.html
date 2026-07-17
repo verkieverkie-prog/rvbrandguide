@@ -14,7 +14,7 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://verkieverkie-prog.github.io/rvbrandguide/assets/og.jpg">
-<link rel="stylesheet" href="assets/styles.css?v=6">
+<link rel="stylesheet" href="assets/styles.css?v=7">
 </head>
 <body>
 
@@ -44,6 +44,20 @@
     <h2 id="order" style="text-align:center">Get the guide</h2>
     <p style="text-align:center">Three ways in. One payment, nothing recurring, 30-day money-back guarantee.<br>
     Not ready? <a href="#free">Get the free 12-point checklist instead</a>.</p>
+
+    <div class="promo" id="promo" hidden>
+      <p class="promo-t">Launch pricing ends Sunday night</p>
+      <div class="promo-clock" id="promo-clock" role="timer">
+        <span class="pc-seg"><b id="pc-d">0</b><i>days</i></span>
+        <span class="pc-sep">:</span>
+        <span class="pc-seg"><b id="pc-h">00</b><i>hrs</i></span>
+        <span class="pc-sep">:</span>
+        <span class="pc-seg"><b id="pc-m">00</b><i>min</i></span>
+        <span class="pc-sep">:</span>
+        <span class="pc-seg"><b id="pc-s">00</b><i>sec</i></span>
+      </div>
+      <p class="promo-s">The complete guide is <b>$27 through Sunday, July 20</b>. Monday it goes to $37.</p>
+    </div>
   </div>
 
   <div class="wrap-wide">
@@ -239,6 +253,18 @@
   <a class="btn" href="#order">Get the guide</a>
 </div>
 
+<div class="xmodal" id="xmodal" hidden role="dialog" aria-modal="true" aria-labelledby="xm-h">
+  <div class="xm-card">
+    <button class="xm-close" id="xm-close" type="button" aria-label="Close">&#215;</button>
+    <p class="xm-eyebrow">Still deciding?</p>
+    <h2 id="xm-h">Not ready for the complete guide? Start with your segment.</h2>
+    <p class="xm-body">You do not need every verdict today. The <b>One Segment Guide</b> covers just your rig type &mdash; travel trailers, fifth wheels, Class A, Class B, or molded fiberglass &mdash; every brand in it ranked buy, caution, or avoid, with the model year splits. Same 30-day money back.</p>
+    <a class="btn ghost xm-alt" href="#" data-add="complete">Get the complete guide instead &mdash; $27</a>
+    <a class="btn xm-main" href="#" data-add="one">Start with one segment &mdash; $12</a>
+    <a class="xm-no" href="#" id="xm-no">No thanks, I&rsquo;ll keep browsing</a>
+  </div>
+</div>
+
 <footer>
   <div class="wrap">
     <p>The RV Brand Reliability Guide, from the RV RYAN channel. We read the recall record so you do not have to.</p>
@@ -257,6 +283,64 @@
       bar.hidden = !(!e.isIntersecting && e.boundingClientRect.top < 0);
     });
   }, {rootMargin: '100px 0px 0px 0px'}).observe(ladder);
+})();
+
+/* Launch promo countdown — one real deadline, same for every visitor.
+   Sun Jul 20 2026, 11:59pm ET. Past the deadline the strip never renders. */
+(function(){
+  var END = Date.parse('2026-07-21T03:59:59Z');
+  var box = document.getElementById('promo');
+  if (!box || !isFinite(END)) return;
+  var d = document.getElementById('pc-d'), h = document.getElementById('pc-h'),
+      m = document.getElementById('pc-m'), s = document.getElementById('pc-s');
+  function pad(n){ return n < 10 ? '0' + n : '' + n; }
+  function tick(){
+    var left = END - Date.now();
+    if (left <= 0) { box.hidden = true; clearInterval(iv); return; }
+    var sec = Math.floor(left / 1000);
+    d.textContent = Math.floor(sec / 86400);
+    h.textContent = pad(Math.floor(sec % 86400 / 3600));
+    m.textContent = pad(Math.floor(sec % 3600 / 60));
+    s.textContent = pad(sec % 60);
+    box.hidden = false;
+  }
+  var iv = setInterval(tick, 1000);
+  tick();
+})();
+
+/* Exit-intent downsell — shown once per visitor. Desktop: cursor leaves through
+   the top of the viewport. Mobile: read deep (60%+) then scroll back up hard. */
+(function(){
+  var modal = document.getElementById('xmodal');
+  if (!modal) return;
+  var KEY = 'rvr_exit_shown';
+  try { if (localStorage.getItem(KEY)) return; } catch(e) {}
+
+  function close(){ modal.hidden = true; document.body.style.overflow = ''; }
+  function show(){
+    try { if (localStorage.getItem(KEY)) return; localStorage.setItem(KEY, '1'); } catch(e) {}
+    modal.hidden = false;
+    document.body.style.overflow = 'hidden';
+  }
+
+  document.getElementById('xm-close').addEventListener('click', close);
+  document.getElementById('xm-no').addEventListener('click', function(e){ e.preventDefault(); close(); });
+  modal.addEventListener('click', function(e){ if (e.target === modal) close(); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !modal.hidden) close(); });
+  /* buying from the modal: let funnel.js handle the click, just unlock scroll */
+  modal.querySelectorAll('[data-add]').forEach(function(b){ b.addEventListener('click', function(){ document.body.style.overflow = ''; }); });
+
+  document.addEventListener('mouseout', function(e){
+    if (!e.relatedTarget && e.clientY <= 0) show();
+  });
+
+  var doc = document.documentElement, deepest = 0, upFrom = null;
+  window.addEventListener('scroll', function(){
+    var y = window.scrollY || doc.scrollTop;
+    var depth = y / Math.max(1, doc.scrollHeight - window.innerHeight);
+    if (depth > deepest) { deepest = depth; upFrom = y; return; }
+    if (deepest > 0.6 && upFrom !== null && upFrom - y > 900) show();
+  }, {passive: true});
 })();
 </script>
 </body>

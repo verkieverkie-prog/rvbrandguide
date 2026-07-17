@@ -449,3 +449,46 @@ footer a { color: var(--ink-2); }
 /* ---- per-tier trust microline ---- */
 .tier .tsecure { font-family: var(--ui); font-size: 12.5px; color: var(--ink-3);
   text-align: center; margin: 10px 0 0; }
+
+/* ---- launch promo countdown ---- */
+.promo { background: var(--ink); border-radius: 10px; padding: 22px 20px 18px;
+  margin: 6px 0 26px; text-align: center;
+  border-bottom: 4px dashed var(--mark-dp); }
+.promo[hidden] { display: none; }
+.promo .promo-t { font-family: var(--anton); font-weight: 700; font-size: 21px;
+  letter-spacing: 0.04em; text-transform: uppercase; color: var(--mark); margin: 0 0 10px; }
+.promo-clock { display: flex; justify-content: center; align-items: flex-start; gap: 10px; }
+.pc-seg { display: flex; flex-direction: column; min-width: 58px; }
+.pc-seg b { font-family: var(--anton); font-weight: 700; font-size: 40px; line-height: 1;
+  color: #fff; font-variant-numeric: tabular-nums; }
+.pc-seg i { font-family: var(--ui); font-style: normal; font-size: 11.5px;
+  letter-spacing: 0.1em; text-transform: uppercase; color: #B9C4CC; margin-top: 4px; }
+.pc-sep { font-family: var(--anton); font-size: 32px; line-height: 40px; color: var(--mark-dp); }
+.promo .promo-s { font-family: var(--ui); font-size: 15.5px; color: #DCE3E8; margin: 12px 0 0; }
+.promo .promo-s b { color: var(--mark); }
+
+/* ---- exit-intent downsell modal ---- */
+.xmodal { position: fixed; inset: 0; z-index: 90; background: rgba(20,33,43,0.78);
+  display: flex; align-items: center; justify-content: center; padding: 20px; }
+.xmodal[hidden] { display: none; }
+.xm-card { position: relative; background: var(--card); border: 2px solid var(--ink);
+  border-radius: 12px; box-shadow: 0 18px 50px rgba(0,0,0,0.4);
+  max-width: 560px; width: 100%; padding: 34px 30px 26px; text-align: center;
+  max-height: 92vh; overflow-y: auto; }
+.xm-close { position: absolute; top: 10px; right: 12px; background: none; border: 0;
+  font-size: 30px; line-height: 1; color: var(--ink-3); cursor: pointer; padding: 6px 10px; }
+.xm-close:hover { color: var(--ink); }
+.xm-eyebrow { font-family: var(--ui); font-weight: 800; font-size: 13.5px;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--skip); margin: 0 0 10px; }
+.xm-card h2 { margin: 0 0 14px; font-size: 27px; }
+.xm-card .xm-body { font-size: 17.5px; line-height: 1.55; margin: 0 0 20px; }
+.xm-card .btn { margin: 0 0 10px; }
+.xm-card .xm-alt { font-size: 16px; }
+.xm-no { display: inline-block; font-family: var(--ui); font-size: 14.5px;
+  color: var(--ink-3); text-decoration: underline; margin-top: 6px; }
+@media (max-width: 480px){
+  .xm-card { padding: 28px 18px 22px; }
+  .xm-card h2 { font-size: 23px; }
+  .pc-seg { min-width: 48px; }
+  .pc-seg b { font-size: 33px; }
+}
