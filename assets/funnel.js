@@ -21,7 +21,7 @@
 
   // ---- LEAD CAPTURE: ship every captured email + intent to the inbox.
   // formsubmit.co relay; fire-and-forget so it never blocks the visitor.
-  var LEAD_ENDPOINT = 'https://formsubmit.co/ajax/rockyvteam@gmail.com';
+  var LEAD_ENDPOINT = 'https://formsubmit.co/ajax/2ce265ece480213995547fc74277e2db';
   function sendLead(kind, extra) {
     try {
       var s = load();
