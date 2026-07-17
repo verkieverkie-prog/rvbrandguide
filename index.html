@@ -92,6 +92,12 @@
       <li>What we could not confirm, stated plainly, so you know where the record ends and rumor begins.</li>
     </ul>
 
+    <!-- CTA 3: breaks the dead zone between the pitch and the ladder -->
+    <div class="cta-block">
+      <a class="btn" href="#order">Get the complete guide, $27</a>
+      <p class="under">Instant download · 30-day money back · every verdict cites its source</p>
+    </div>
+
     <!-- 7. HOW IT WORKS: cohort-required 1-2-3 -->
     <h2>How it works</h2>
     <div class="howit">
@@ -206,6 +212,11 @@
   </div>
 </main>
 
+<div class="stickycta" id="stickycta" hidden>
+  <div class="sc-copy"><b>The complete brand guide</b><span>$27 · instant download · 30-day money back</span></div>
+  <a class="btn" href="#order">Get the guide</a>
+</div>
+
 <footer>
   <div class="wrap">
     <p>The RV Brand Reliability Guide, from the RV RYAN channel. We read the recall record so you do not have to.</p>
@@ -214,5 +225,23 @@
 </footer>
 
 <script src="assets/funnel.js"></script>
+<script>
+(function(){
+  var bar = document.getElementById('stickycta');
+  var firstCta = document.querySelector('.cta-block');
+  var order = document.querySelector('.ladder');
+  if (!bar || !firstCta || !order || !('IntersectionObserver' in window)) return;
+  var pastFirst = false, ladderVisible = false;
+  function update(){ bar.hidden = !(pastFirst && !ladderVisible); }
+  new IntersectionObserver(function(es){
+    es.forEach(function(e){ pastFirst = !e.isIntersecting && e.boundingClientRect.top < 0; });
+    update();
+  }).observe(firstCta);
+  new IntersectionObserver(function(es){
+    es.forEach(function(e){ ladderVisible = e.isIntersecting; });
+    update();
+  }, {rootMargin: '0px 0px 200px 0px'}).observe(order);
+})();
+</script>
 </body>
 </html>

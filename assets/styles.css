@@ -419,3 +419,19 @@ footer a { color: var(--ink-2); }
   font-size: 22px; display: flex; align-items: center; justify-content: center; }
 .author p { margin: 0; font-size: 17px; }
 @media (max-width: 560px){ .letter h1 { font-size: 33px; } }
+
+/* ---- sticky mobile CTA bar ---- */
+.stickycta { position: fixed; left: 0; right: 0; bottom: 0; z-index: 50;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  background: var(--ink); color: #fff; padding: 10px 16px;
+  padding-bottom: calc(10px + env(safe-area-inset-bottom));
+  border-top: 3px solid var(--mark-dp);
+  box-shadow: 0 -6px 18px rgba(20,33,43,.25); }
+.stickycta[hidden] { display: none; }
+.stickycta .sc-copy { display: flex; flex-direction: column; min-width: 0;
+  font-family: var(--ui); line-height: 1.25; }
+.stickycta .sc-copy b { font-size: 15px; color: #fff; }
+.stickycta .sc-copy span { font-size: 12.5px; color: #B9C4CC; white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis; }
+.stickycta .btn { margin: 0; padding: 12px 20px; font-size: 16px; flex: none; min-height: 48px; }
+@media (min-width: 900px){ .stickycta { display: none; } }
